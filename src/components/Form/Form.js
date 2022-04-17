@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { addContact } from "../redux/contacts/contactsActions";
+import {contactsItems, addContact} from '../redux/contacts';
 import { Forma, LabelPhone, InputPhone, AddContact } from './Form.styled';
 import { ToastContainer, toast } from 'react-toastify';
 import PhoneInput from 'react-phone-number-input';
@@ -10,10 +10,10 @@ import './Form.css';
 function Form({ nameId, numberId }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  const stateContacts = useSelector((state) => state.contacts.items);
-  // console.log(stateContacts);
   const dispatch = useDispatch();
+
+  const stateContacts = useSelector((state) => contactsItems(state));
+ 
 
   const handelChange = event => {
     const onName = event.currentTarget.name;
@@ -89,18 +89,6 @@ function Form({ nameId, numberId }) {
         />
       </LabelPhone>
 
-       {/* <LabelPhone htmlFor={numberId}>
-        Number
-        <InputPhone
-          type="tel"
-          value={number}
-          name="number"
-          onChange={handelChange}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </LabelPhone> */}
       <AddContact type="submit">Add contact</AddContact>
     </Forma>
       <ToastContainer
