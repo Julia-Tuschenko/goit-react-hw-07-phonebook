@@ -7,9 +7,9 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-toastify/dist/ReactToastify.css';
 import './Form.css';
 
-function Form({ nameId, numberId }) {
+function Form({ nameId, phoneId }) {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const dispatch = useDispatch();
 
   const stateContacts = useSelector((state) => contactsItems(state));
@@ -23,8 +23,8 @@ function Form({ nameId, numberId }) {
       case 'name':
         setName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
       default:
         return;
@@ -34,7 +34,7 @@ function Form({ nameId, numberId }) {
   const addNewContact = () => {
       const item = {
         name,
-        number,
+        phone,
       }
       const normalizedContact = item.name.trim().toLowerCase();
 
@@ -50,7 +50,7 @@ function Form({ nameId, numberId }) {
 
   const reset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   const handelSubmit = event => {
@@ -76,13 +76,13 @@ function Form({ nameId, numberId }) {
         />
       </LabelPhone>
 
-      <LabelPhone htmlFor={numberId}>
+      <LabelPhone htmlFor={phoneId}>
         Number
         <PhoneInput
           type="tel"
-          value={number}
-          name="number"
-          onChange={setNumber}
+          value={phone}
+          name="phone"
+          onChange={setPhone}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
