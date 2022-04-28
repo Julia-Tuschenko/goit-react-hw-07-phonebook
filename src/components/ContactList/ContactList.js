@@ -1,25 +1,28 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ListContact, ListItem, ListButton } from './Contacts.styled';
-import { mapFilterContactsList, deleteContact, fetchContacts } from '../redux/contacts';
-import { useEffect } from "react";
+import { useFetchContactsQuery, useDeleteContactMutation } from 'redux/contacts/contactApi';
+
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const mapFilterContacts = useSelector((state) => mapFilterContactsList(state));
+  const { data } = useFetchContactsQuery();
+  const {deleteContact } = useDeleteContactMutation();
+  const filter = useSelector(state => state.filter.filter);
 
-  useEffect(()=> {
-    dispatch(fetchContacts())
-  },[dispatch])
+console.log(useFetchContactsQuery());
+
+  const mapFilterContacts = data?.filter(({name}) => 
+  name.trim().toLowerCase().includes(filter.toLowerCase()));
 
   return (
     <ListContact>
-      {mapFilterContacts.map(({ id, name, phone }) => {
+      {mapFilterContacts.map((contact) => {
         return (
-        <ListItem key={id}>
+        <ListItem key={contact.id}>
         <p>
-          {name}: {phone}
+          {contact.name}: {contact.phone}
         </p>
-        <ListButton type="button" onClick={() => dispatch(deleteContact(id))}>
+        <ListButton type="button" onClick={dispatch(deleteContact(contact.id))}>
           Delete
         </ListButton>
       </ListItem>

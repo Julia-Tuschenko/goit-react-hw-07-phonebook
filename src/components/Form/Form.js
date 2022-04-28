@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import {contactsItems, addContact} from '../redux/contacts';
+// import { useDispatch } from "react-redux";
+// import {contactsItems, addContact} from '../redux/contacts';
 import { Forma, LabelPhone, InputPhone, AddContact } from './Form.styled';
 import { ToastContainer, toast } from 'react-toastify';
 import PhoneInput from 'react-phone-number-input';
 import 'react-toastify/dist/ReactToastify.css';
 import './Form.css';
 
+import { useAddContactMutation, useFetchContactsQuery } from 'redux/contacts/contactApi';
+
 function Form({ nameId, phoneId }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const stateContacts = useSelector((state) => contactsItems(state));
- 
+  // const stateContacts = useSelector((state) => contactsItems(state));
+ const {addContact} = useAddContactMutation(); 
+ const {data} = useFetchContactsQuery();
 
   const handelChange = event => {
     const onName = event.currentTarget.name;
@@ -23,7 +26,7 @@ function Form({ nameId, phoneId }) {
       case 'name':
         setName(value);
         break;
-      case 'phone':
+      case 'number':
         setPhone(value);
         break;
       default:
@@ -31,20 +34,32 @@ function Form({ nameId, phoneId }) {
     }
   };
 
-  const addNewContact = () => {
-      const item = {
-        name,
-        phone,
-      }
-      const normalizedContact = item.name.trim().toLowerCase();
+  const addNewContact = async e => {
+      // const item = {
+      //   name,
+      //   phone,
+      // }
+      // const normalizedContact = item.name.trim().toLowerCase();
 
-      const availableContact = stateContacts.some(
-        (contact) => contact.name.trim().toLowerCase() === normalizedContact)
+      // const availableContact = data.some(
+        // (contact) => contact.name.trim().toLowerCase() === normalizedContact)
     
-      if (availableContact) {
-      return toast.error(`${item.name} is already in contacts!`);
+      // if (availableContact) {
+      // return toast.error(`${item.name} is already in contacts!`);
+      // } else {
+      // addContact(item);
+      // };
+
+    // const content = e.currentTarget.elements.content.value;
+    // const normalizedContact = content.name.trim().toLowerCase();
+    
+    const availableContact = await data.some(
+    (contact) => contact.name.trim().toLowerCase().includes(name.toLowerCase()))
+    
+    if (availableContact) {
+      return toast.error(`${name} is already in contacts!`);
       } else {
-      dispatch(addContact(item));
+      await addContact({name, phone});
       };
 };
 

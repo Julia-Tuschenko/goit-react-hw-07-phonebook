@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const Section = styled.section`
-  width: 500px;
+  width: 400px;
   padding-top: 20px;
   padding-bottom: 20px;
 `;
