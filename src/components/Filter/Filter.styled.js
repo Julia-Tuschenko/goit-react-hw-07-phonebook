@@ -7,8 +7,18 @@ export const LabelContact = styled.label`
   font-size: 18px;
 `;
 
-export const InputContact = styled.input`
-  padding: 2px 5px;
-  margin-top: 6px;
-  width: 150px;
-`;
+export const InputContact = {
+  padding: '2px 5px',
+  marginTop: '6px',
+  width: '150px',
+}
+
+
+
+// export const InputContact = styled.input`
+//   padding: 2px 5px;
+//   margin-top: 6px;
+//   width: 150px;
+// `;
+
+

@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 
 export const ListContact = styled.ul`
-  margin-left: 10px;
   margin-top: 10px;
-  padding-right: 10px;
+  padding: 0;
 `;
 
 export const ListItem = styled.li`
@@ -11,7 +10,7 @@ export const ListItem = styled.li`
   justify-content: space-between;
   align-items: center;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 400px;
 `;
 
 export const ListButton = styled.button`

@@ -15,7 +15,7 @@ function Form({ nameId, phoneId }) {
   // const dispatch = useDispatch();
 
   // const stateContacts = useSelector((state) => contactsItems(state));
- const {addContact} = useAddContactMutation(); 
+ const [addContact] = useAddContactMutation(); 
  const {data} = useFetchContactsQuery();
 
   const handelChange = event => {
@@ -34,25 +34,7 @@ function Form({ nameId, phoneId }) {
     }
   };
 
-  const addNewContact = async e => {
-      // const item = {
-      //   name,
-      //   phone,
-      // }
-      // const normalizedContact = item.name.trim().toLowerCase();
-
-      // const availableContact = data.some(
-        // (contact) => contact.name.trim().toLowerCase() === normalizedContact)
-    
-      // if (availableContact) {
-      // return toast.error(`${item.name} is already in contacts!`);
-      // } else {
-      // addContact(item);
-      // };
-
-    // const content = e.currentTarget.elements.content.value;
-    // const normalizedContact = content.name.trim().toLowerCase();
-    
+  const addNewContact = async () => {  
     const availableContact = await data.some(
     (contact) => contact.name.trim().toLowerCase().includes(name.toLowerCase()))
     
